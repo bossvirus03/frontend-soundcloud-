@@ -1,11 +1,10 @@
 function PlaylistPage() {
-    return ( 
-        <>
-        <div>
-            playlist page
-        </div>
-        </>
-     );
+  console.log(">>> check ENV", process.env.NEXT_PUBLIC_BACKEND_URL);
+  return (
+    <>
+      <div>playlist page</div>
+    </>
+  );
 }
 
 export default PlaylistPage;
