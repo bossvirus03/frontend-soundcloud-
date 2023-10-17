@@ -8,7 +8,6 @@ import { useHasMounted } from "@/utils/customHook";
 function AppFooter() {
   const hasMounted = useHasMounted();
   if (!hasMounted) return <></>;
-  console.log("check backend", process.env.NEXT_PUBLIC_BACKEND_URL);
   return (
     <div>
       <AppBar
@@ -22,7 +21,7 @@ function AppFooter() {
               background: "#f2f2f2",
             }}
             autoPlay
-            src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3"
+            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/track_upload/audio_Track/file_example_MP3_5MG-1697431588006.mp3`}
             onPlay={(e) => console.log("onPlay")}
             // other props here
           />
