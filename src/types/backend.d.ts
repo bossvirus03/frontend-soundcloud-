@@ -28,4 +28,24 @@ declare global {
     };
     result: T[];
   }
+
+  interface ITrackTop {
+    _id: string;
+    title: string;
+    description: string;
+    category: string;
+    imgUrl: string;
+    trackUrl: string;
+    countLike: number;
+    countPlay: number;
+    // uploader: {
+    //   _id: string;
+    //   email: string;
+    //   name: string;
+    //   role: string;
+    //   type: string;
+    // };
+    uploader: string;
+    isDeleted: false;
+  }
 }
