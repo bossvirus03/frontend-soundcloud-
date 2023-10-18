@@ -8,13 +8,13 @@ import Button from "@mui/material/Button/Button";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Divider from "@mui/material/Divider";
+import Link from "next/link";
 interface IProps {
   data: ITrackTop[];
   title: string;
 }
 function MainSlider(props: IProps) {
   const data = props.data;
-  console.log(data.length);
   const NextArrow = (props: any) => {
     return (
       <Button
@@ -90,8 +90,10 @@ function MainSlider(props: IProps) {
                 src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/track_upload/img_Track/${item.imgUrl}`}
                 alt=""
               />
-              <h4>{item.title}</h4>
-              <h5>{item.description}</h5>
+              <Link href={`track/${item._id}?audio=${item.trackUrl}`}>
+                <h4>{item.title}</h4>
+                <h5>{item.description}</h5>
+              </Link>
             </div>
           );
         })}
