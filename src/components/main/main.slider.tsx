@@ -83,9 +83,9 @@ function MainSlider(props: IProps) {
       <h2> {props.title} </h2>
 
       <Slider {...settings}>
-        {data.map((item) => {
+        {data.map((item, index) => {
           return (
-            <div className="track">
+            <div className="track" key={index}>
               <img
                 src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/track_upload/img_Track/${item.imgUrl}`}
                 alt=""
