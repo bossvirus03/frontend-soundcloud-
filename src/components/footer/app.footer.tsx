@@ -21,7 +21,7 @@ function AppFooter() {
               background: "#f2f2f2",
             }}
             autoPlay
-            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/track_upload/audio_Track/file_example_MP3_5MG-1697431588006.mp3`}
+            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/track_upload/audioTrack/file_example_MP3_5MG-1697431588006.mp3`}
             onPlay={(e) => console.log("onPlay")}
             // other props here
           />

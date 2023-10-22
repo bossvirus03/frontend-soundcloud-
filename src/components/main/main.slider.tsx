@@ -87,7 +87,7 @@ function MainSlider(props: IProps) {
           return (
             <div className="track" key={index}>
               <img
-                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/track_upload/img_Track/${item.imgUrl}`}
+                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/track_upload/imgTrack/${item.imgUrl}`}
                 alt=""
               />
               <Link href={`track/${item._id}?audio=${item.trackUrl}`}>

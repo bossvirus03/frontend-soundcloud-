@@ -5,6 +5,6 @@ export async function GET(request: NextRequest, response: NextResponse) {
   const searchParams = new URLSearchParams(url.search);
   const fileName = searchParams.get("audio");
   return await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/track_upload/audio_Track/${fileName}`
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/track_upload/audioTrack/${fileName}`
   );
 }
