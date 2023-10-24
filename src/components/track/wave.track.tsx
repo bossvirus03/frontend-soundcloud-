@@ -5,6 +5,7 @@ import { useCallback, useMemo, useRef, useState, useEffect } from "react";
 import { WaveSurferOptions } from "wavesurfer.js";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
+import { Tooltip } from "@mui/material";
 import "./wave.scss";
 
 const arrComments = [
@@ -233,19 +234,21 @@ function WaveTrack() {
             <div className="comments" style={{ position: "relative" }}>
               {arrComments.map((item) => {
                 return (
-                  <img
-                    key={item.id}
-                    style={{
-                      width: 20,
-                      height: 20,
-                      position: "absolute",
-                      top: 71,
-                      left: calLeft(item.moment),
-                      zIndex: 20,
-                    }}
-                    src={item.avatar}
-                    alt=""
-                  />
+                  <Tooltip title={item.content} arrow>
+                    <img
+                      key={item.id}
+                      style={{
+                        width: 20,
+                        height: 20,
+                        position: "absolute",
+                        top: 71,
+                        left: calLeft(item.moment),
+                        zIndex: 20,
+                      }}
+                      src={item.avatar}
+                      alt=""
+                    />
+                  </Tooltip>
                 );
               })}
             </div>
