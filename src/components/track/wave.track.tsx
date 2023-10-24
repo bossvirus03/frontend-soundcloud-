@@ -54,7 +54,7 @@ function WaveTrack() {
     return {
       waveColor: gradient,
       progressColor: progressGradient,
-      height: 200,
+      height: 170,
       barWidth: 2,
       url: `/api?audio=${search}`,
     };
@@ -68,6 +68,13 @@ function WaveTrack() {
     setIsPlaying(false);
     const timeEl = document.querySelector("#time")!;
     const durationEl = document.querySelector("#duration")!;
+    const hover = document.querySelector("#hover");
+    const waveform = containerRef.current!;
+    waveform.addEventListener(
+      "pointermove",
+      //@ts-ignore
+      (e) => (hover.style.width = `${e.offsetX}px`)
+    );
     const subscriptions = [
       wavesurfer.on("play", () => setIsPlaying(true)),
       wavesurfer.on("pause", () => setIsPlaying(false)),
@@ -103,6 +110,7 @@ function WaveTrack() {
         wave track
         <div id="time">0:00</div>
         <div id="duration">0:00</div>
+        <div id="hover"></div>
       </div>
       <div>
         <button onClick={onPlayClick}>
