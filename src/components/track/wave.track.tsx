@@ -6,6 +6,9 @@ import { WaveSurferOptions } from "wavesurfer.js";
 import "./wave.scss";
 function WaveTrack() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const timeRef = useRef<HTMLDivElement>(null);
+  const durationRef = useRef<HTMLDivElement>(null);
+  const hoverRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const search = searchParams.get("audio");
   const option = {
@@ -66,9 +69,9 @@ function WaveTrack() {
     if (!wavesurfer) return;
 
     setIsPlaying(false);
-    const timeEl = document.querySelector("#time")!;
-    const durationEl = document.querySelector("#duration")!;
-    const hover = document.querySelector("#hover");
+    const timeEl = timeRef.current!;
+    const durationEl = durationRef.current!;
+    const hover = hoverRef.current!;
     const waveform = containerRef.current!;
     waveform.addEventListener(
       "pointermove",
@@ -108,9 +111,13 @@ function WaveTrack() {
     <>
       <div ref={containerRef} className={"waveform"}>
         wave track
-        <div id="time">0:00</div>
-        <div id="duration">0:00</div>
-        <div id="hover"></div>
+        <div className="time" ref={timeRef}>
+          0:00
+        </div>
+        <div className="duration" ref={durationRef}>
+          0:00
+        </div>
+        <div className="hover" ref={hoverRef}></div>
       </div>
       <div>
         <button onClick={onPlayClick}>
