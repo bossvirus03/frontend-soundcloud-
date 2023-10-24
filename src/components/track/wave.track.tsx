@@ -1,11 +1,10 @@
 "use client";
 import { useWavesurfer } from "@/utils/customHook";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState, useEffect } from "react";
 import { WaveSurferOptions } from "wavesurfer.js";
-
+import "./wave.scss";
 function WaveTrack() {
-  const [isPlaying, setIsPlaying] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const search = searchParams.get("audio");
@@ -55,23 +54,56 @@ function WaveTrack() {
     return {
       waveColor: gradient,
       progressColor: progressGradient,
-      height: 150,
+      height: 200,
       barWidth: 2,
       url: `/api?audio=${search}`,
     };
   }, []);
+  const [isPlaying, setIsPlaying] = useState(false);
   const wavesurfer = useWavesurfer(containerRef, optionMemo);
 
+  useEffect(() => {
+    if (!wavesurfer) return;
+
+    setIsPlaying(false);
+    const timeEl = document.querySelector("#time")!;
+    const durationEl = document.querySelector("#duration")!;
+    const subscriptions = [
+      wavesurfer.on("play", () => setIsPlaying(true)),
+      wavesurfer.on("pause", () => setIsPlaying(false)),
+      wavesurfer.on(
+        "decode",
+        (duration) => (durationEl.textContent = formatTime(duration))
+      ),
+      wavesurfer.on(
+        "timeupdate",
+        (currentTime) => (timeEl.textContent = formatTime(currentTime))
+      ),
+    ];
+
+    return () => {
+      subscriptions.forEach((unsub) => unsub());
+    };
+  }, [wavesurfer]);
   // On play button click
   const onPlayClick = useCallback(() => {
     if (wavesurfer) {
       wavesurfer.isPlaying() ? wavesurfer.pause() : wavesurfer.play();
-      setIsPlaying(wavesurfer.isPlaying());
     }
   }, [wavesurfer]);
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const secondsRemainder = Math.round(seconds) % 60;
+    const paddedSeconds = `0${secondsRemainder}`.slice(-2);
+    return `${minutes}:${paddedSeconds}`;
+  };
   return (
     <>
-      <div ref={containerRef}>wave track</div>
+      <div ref={containerRef} className={"waveform"}>
+        wave track
+        <div id="time">0:00</div>
+        <div id="duration">0:00</div>
+      </div>
       <div>
         <button onClick={onPlayClick}>
           {isPlaying === true ? "pause" : "play"}
