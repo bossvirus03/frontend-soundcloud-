@@ -6,6 +6,35 @@ import { WaveSurferOptions } from "wavesurfer.js";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import "./wave.scss";
+
+const arrComments = [
+  {
+    id: 1,
+    avatar: "http://localhost:3000/track_upload/imgTrack/1.jpg",
+    moment: 10,
+    user: "username 1",
+    content: "just a comment1",
+  },
+  {
+    id: 2,
+    avatar: "http://localhost:3000/track_upload/imgTrack/1.jpg",
+    moment: 30,
+    user: "username 2",
+    content: "just a comment3",
+  },
+  {
+    id: 3,
+    avatar: "http://localhost:3000/track_upload/imgTrack/1.jpg",
+    moment: 50,
+    user: "username 3",
+    content: "just a comment3",
+  },
+];
+const calLeft = (moment: number) => {
+  const hardCodeDuration = 199;
+  const percent = (moment / hardCodeDuration) * 100;
+  return `${percent}%`;
+};
 function WaveTrack() {
   const containerRef = useRef<HTMLDivElement>(null);
   const timeRef = useRef<HTMLDivElement>(null);
@@ -201,6 +230,25 @@ function WaveTrack() {
                 backdropFilter: "brightness(0.5)",
               }}
             ></div>
+            <div className="comments" style={{ position: "relative" }}>
+              {arrComments.map((item) => {
+                return (
+                  <img
+                    key={item.id}
+                    style={{
+                      width: 20,
+                      height: 20,
+                      position: "absolute",
+                      top: 71,
+                      left: calLeft(item.moment),
+                      zIndex: 20,
+                    }}
+                    src={item.avatar}
+                    alt=""
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
         <div
